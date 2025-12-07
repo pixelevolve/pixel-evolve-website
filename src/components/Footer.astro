@@ -1,0 +1,112 @@
+---
+import Logo from './Logo.astro';
+
+export interface Props {
+  variant?: 'company' | 'product';
+}
+
+const { variant = 'company' } = Astro.props;
+
+const productLinks = [
+  { href: 'https://translate.pixel-evolve.com', label: 'Shopify AI Translator' },
+];
+
+const legalLinks = [
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/terms', label: 'Terms of Service' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-neutral-900 text-white py-16">
+  <div class="container-wide px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <!-- Logo & Company Info -->
+      <div class="md:col-span-1">
+        <Logo variant="white" size="sm" class="mb-4" />
+        <p class="text-small text-neutral-400 mb-4">
+          Building tools that help e-commerce businesses grow globally.
+        </p>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full text-small text-neutral-300">
+          <span>🇸🇪</span>
+          <span>Engineered in Stockholm</span>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div>
+        <h4 class="text-small font-semibold text-white uppercase tracking-wider mb-4">
+          Products
+        </h4>
+        <ul class="space-y-3">
+          {productLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-small text-neutral-400 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <span class="text-small text-neutral-500 italic">More coming soon...</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h4 class="text-small font-semibold text-white uppercase tracking-wider mb-4">
+          Legal
+        </h4>
+        <ul class="space-y-3">
+          {legalLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-small text-neutral-400 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-small font-semibold text-white uppercase tracking-wider mb-4">
+          Contact
+        </h4>
+        <ul class="space-y-3">
+          <li>
+            <a
+              href="mailto:hello@pixel-evolve.com"
+              class="text-small text-neutral-400 hover:text-white transition-colors"
+            >
+              hello@pixel-evolve.com
+            </a>
+          </li>
+          <li class="text-small text-neutral-500">
+            PixelEvolve AB<br />
+            Stockholm, Sweden
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 border-t border-white/10">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-small text-neutral-500">
+          © {currentYear} PixelEvolve AB · Org.nr: 559493-7418
+        </p>
+        <p class="text-small text-neutral-500">
+          Made with care in Stockholm, Sweden
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

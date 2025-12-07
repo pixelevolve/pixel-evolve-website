@@ -1,0 +1,82 @@
+---
+export interface Props {
+  icon: string;
+  name: string;
+  description: string;
+  features?: string[];
+  badges?: Array<{ text: string; variant: 'primary' | 'evolve' }>;
+  ctaText: string;
+  ctaLink: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const {
+  icon,
+  name,
+  description,
+  features = [],
+  badges = [],
+  ctaText,
+  ctaLink,
+  variant = 'primary',
+} = Astro.props;
+
+const isSecondary = variant === 'secondary';
+---
+
+<div
+  class:list={[
+    'card max-w-2xl mx-auto',
+    { 'opacity-60': isSecondary }
+  ]}
+>
+  <div class={isSecondary ? 'text-4xl mb-4' : 'text-5xl mb-4'}>{icon}</div>
+
+  <h3 class:list={[
+    'mb-2',
+    isSecondary ? 'text-h4 text-neutral-500' : 'text-h3'
+  ]}>
+    {name}
+  </h3>
+
+  <p class:list={[
+    'mb-6',
+    isSecondary ? 'text-small text-neutral-400' : 'text-body text-neutral-600'
+  ]}>
+    {description}
+  </p>
+
+  {features.length > 0 && (
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 text-left max-w-md mx-auto">
+      {features.map((feature) => (
+        <div class="flex items-center gap-2 text-small text-neutral-600">
+          <span class="text-evolve flex-shrink-0">✓</span>
+          <span>{feature}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {badges.length > 0 && (
+    <div class="flex flex-wrap justify-center gap-3 mb-6">
+      {badges.map((badge) => (
+        <span
+          class:list={[
+            'px-3 py-1 text-small font-medium rounded-full',
+            badge.variant === 'evolve'
+              ? 'bg-evolve/10 text-evolve'
+              : 'bg-primary/10 text-primary'
+          ]}
+        >
+          {badge.text}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {!isSecondary && (
+    <a href={ctaLink} class="btn btn-evolve">
+      {ctaText}
+    </a>
+  )}
+</div>

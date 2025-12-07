@@ -1,0 +1,293 @@
+---
+// GDPR-compliant cookie banner with granular consent options
+---
+
+<div
+  id="cookie-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-neutral-200 shadow-lg transform translate-y-full transition-transform duration-300"
+  role="dialog"
+  aria-label="Cookie consent"
+  aria-modal="true"
+>
+  <!-- Main banner -->
+  <div id="cookie-main" class="p-4">
+    <div class="container-wide">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <div class="flex-1">
+          <p class="text-small text-neutral-600">
+            We use cookies to enhance your browsing experience, analyze site traffic, and personalize content.
+            You can choose which cookies you allow. See our
+            <a href="/privacy" class="text-primary hover:text-primary-dark underline">Privacy Policy</a>
+            for more information.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+          <button
+            id="cookie-manage"
+            class="text-small py-2 px-4 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
+            type="button"
+          >
+            Manage Preferences
+          </button>
+          <button
+            id="cookie-reject"
+            class="text-small py-2 px-4 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
+            type="button"
+          >
+            Reject All
+          </button>
+          <button
+            id="cookie-accept"
+            class="btn btn-primary text-small py-2 px-4"
+            type="button"
+          >
+            Accept All
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preferences panel (hidden by default) -->
+  <div id="cookie-preferences" class="hidden border-t border-neutral-200 bg-neutral-50">
+    <div class="container-wide py-6">
+      <h3 class="text-lg font-semibold text-neutral-900 mb-4">Cookie Preferences</h3>
+      <p class="text-small text-neutral-600 mb-6">
+        Manage your cookie preferences below. Necessary cookies are required for the website to function and cannot be disabled.
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <!-- Necessary cookies (always on) -->
+        <div class="flex items-start justify-between p-4 bg-white rounded-lg border border-neutral-200">
+          <div class="flex-1 pr-4">
+            <div class="flex items-center gap-2 mb-1">
+              <h4 class="font-medium text-neutral-900">Necessary</h4>
+              <span class="text-xs bg-neutral-200 text-neutral-600 px-2 py-0.5 rounded">Always active</span>
+            </div>
+            <p class="text-small text-neutral-600">
+              Essential cookies for basic website functionality, security, and accessibility. These cannot be disabled.
+            </p>
+          </div>
+          <div class="flex-shrink-0">
+            <div class="w-12 h-6 bg-primary rounded-full opacity-60 cursor-not-allowed relative">
+              <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics cookies -->
+        <div class="flex items-start justify-between p-4 bg-white rounded-lg border border-neutral-200">
+          <div class="flex-1 pr-4">
+            <label for="cookie-analytics" class="cursor-pointer">
+              <h4 class="font-medium text-neutral-900 mb-1">Analytics</h4>
+              <p class="text-small text-neutral-600">
+                Help us understand how visitors interact with our website by collecting anonymous usage data. This helps us improve our services.
+              </p>
+            </label>
+          </div>
+          <div class="flex-shrink-0">
+            <button
+              type="button"
+              id="cookie-analytics"
+              role="switch"
+              aria-checked="false"
+              class="cookie-toggle w-12 h-6 bg-neutral-300 rounded-full relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              data-category="analytics"
+            >
+              <div class="toggle-knob absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform"></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Marketing cookies -->
+        <div class="flex items-start justify-between p-4 bg-white rounded-lg border border-neutral-200">
+          <div class="flex-1 pr-4">
+            <label for="cookie-marketing" class="cursor-pointer">
+              <h4 class="font-medium text-neutral-900 mb-1">Marketing</h4>
+              <p class="text-small text-neutral-600">
+                Used to deliver relevant advertisements and track campaign effectiveness. These cookies may be set by our advertising partners.
+              </p>
+            </label>
+          </div>
+          <div class="flex-shrink-0">
+            <button
+              type="button"
+              id="cookie-marketing"
+              role="switch"
+              aria-checked="false"
+              class="cookie-toggle w-12 h-6 bg-neutral-300 rounded-full relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              data-category="marketing"
+            >
+              <div class="toggle-knob absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-2 pt-4 border-t border-neutral-200">
+        <button
+          id="cookie-cancel"
+          class="text-small py-2 px-4 border border-neutral-300 rounded-lg hover:bg-white transition-colors"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          id="cookie-save"
+          class="btn btn-primary text-small py-2 px-4"
+          type="button"
+        >
+          Save Preferences
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-toggle[aria-checked="true"] {
+    @apply bg-primary;
+  }
+
+  .cookie-toggle[aria-checked="true"] .toggle-knob {
+    transform: translateX(1.5rem);
+  }
+</style>
+
+<script>
+  const COOKIE_KEY = 'pixelevolve-cookie-consent';
+
+  interface CookiePreferences {
+    necessary: boolean;
+    analytics: boolean;
+    marketing: boolean;
+    timestamp: number;
+  }
+
+  const banner = document.getElementById('cookie-banner');
+  const mainView = document.getElementById('cookie-main');
+  const preferencesView = document.getElementById('cookie-preferences');
+
+  const acceptButton = document.getElementById('cookie-accept');
+  const rejectButton = document.getElementById('cookie-reject');
+  const manageButton = document.getElementById('cookie-manage');
+  const cancelButton = document.getElementById('cookie-cancel');
+  const saveButton = document.getElementById('cookie-save');
+
+  const analyticsToggle = document.getElementById('cookie-analytics') as HTMLButtonElement;
+  const marketingToggle = document.getElementById('cookie-marketing') as HTMLButtonElement;
+
+  function showBanner() {
+    banner?.classList.remove('translate-y-full');
+  }
+
+  function hideBanner() {
+    banner?.classList.add('translate-y-full');
+  }
+
+  function showPreferences() {
+    mainView?.classList.add('hidden');
+    preferencesView?.classList.remove('hidden');
+  }
+
+  function hidePreferences() {
+    preferencesView?.classList.add('hidden');
+    mainView?.classList.remove('hidden');
+  }
+
+  function getStoredPreferences(): CookiePreferences | null {
+    const stored = localStorage.getItem(COOKIE_KEY);
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  function hasConsented(): boolean {
+    return getStoredPreferences() !== null;
+  }
+
+  function savePreferences(preferences: CookiePreferences) {
+    localStorage.setItem(COOKIE_KEY, JSON.stringify(preferences));
+    hideBanner();
+    dispatchConsentEvent(preferences);
+  }
+
+  function dispatchConsentEvent(preferences: CookiePreferences) {
+    window.dispatchEvent(new CustomEvent('cookieConsent', {
+      detail: preferences
+    }));
+  }
+
+  function updateToggle(toggle: HTMLButtonElement | null, enabled: boolean) {
+    if (toggle) {
+      toggle.setAttribute('aria-checked', enabled.toString());
+    }
+  }
+
+  function getToggleState(toggle: HTMLButtonElement | null): boolean {
+    return toggle?.getAttribute('aria-checked') === 'true';
+  }
+
+  function toggleSwitch(toggle: HTMLButtonElement) {
+    const current = toggle.getAttribute('aria-checked') === 'true';
+    toggle.setAttribute('aria-checked', (!current).toString());
+  }
+
+  function acceptAll() {
+    savePreferences({
+      necessary: true,
+      analytics: true,
+      marketing: true,
+      timestamp: Date.now()
+    });
+  }
+
+  function rejectAll() {
+    savePreferences({
+      necessary: true,
+      analytics: false,
+      marketing: false,
+      timestamp: Date.now()
+    });
+  }
+
+  function saveCurrentPreferences() {
+    savePreferences({
+      necessary: true,
+      analytics: getToggleState(analyticsToggle),
+      marketing: getToggleState(marketingToggle),
+      timestamp: Date.now()
+    });
+  }
+
+  // Initialize toggles from stored preferences
+  const stored = getStoredPreferences();
+  if (stored) {
+    updateToggle(analyticsToggle, stored.analytics);
+    updateToggle(marketingToggle, stored.marketing);
+  }
+
+  // Check consent status on load
+  if (!hasConsented()) {
+    setTimeout(showBanner, 1000);
+  }
+
+  // Event listeners
+  acceptButton?.addEventListener('click', acceptAll);
+  rejectButton?.addEventListener('click', rejectAll);
+  manageButton?.addEventListener('click', showPreferences);
+  cancelButton?.addEventListener('click', hidePreferences);
+  saveButton?.addEventListener('click', saveCurrentPreferences);
+
+  // Toggle switches
+  analyticsToggle?.addEventListener('click', () => toggleSwitch(analyticsToggle));
+  marketingToggle?.addEventListener('click', () => toggleSwitch(marketingToggle));
+
+  // Expose preferences getter globally
+  (window as any).getCookiePreferences = getStoredPreferences;
+</script>

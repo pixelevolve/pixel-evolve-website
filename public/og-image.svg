@@ -1,0 +1,33 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="50%" style="stop-color:#eff6ff"/>
+      <stop offset="100%" style="stop-color:#ecfdf5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Centered stacked logo icon (scaled) -->
+  <g transform="translate(520, 160)">
+    <circle cx="100" cy="100" r="64" fill="#10b981"/>
+    <rect x="32" y="32" width="96" height="96" rx="24" fill="#3b82f6"/>
+    <rect x="16" y="16" width="64" height="64" fill="#1e40af"/>
+  </g>
+
+  <!-- Text: PixelEvolve -->
+  <text x="600" y="380" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="48" font-weight="700">
+    <tspan fill="#1e40af">Pixel</tspan><tspan fill="#10b981">Evolve</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="430" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" fill="#4b5563">
+    Building tools that help e-commerce businesses grow globally
+  </text>
+
+  <!-- Stockholm badge -->
+  <text x="600" y="520" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#9ca3af">
+    Engineered in Stockholm
+  </text>
+</svg>

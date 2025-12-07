@@ -1,0 +1,72 @@
+---
+import Logo from './Logo.astro';
+import TrustBadge from './TrustBadge.astro';
+
+export interface Props {
+  variant?: 'company' | 'product';
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaLink: string;
+  trustBadgeIcon?: string;
+  trustBadgeText?: string;
+  secondaryCta?: {
+    text: string;
+    link: string;
+  };
+}
+
+const {
+  variant = 'company',
+  title,
+  subtitle,
+  ctaText,
+  ctaLink,
+  trustBadgeIcon = '🇸🇪',
+  trustBadgeText = 'Engineered in Stockholm',
+  secondaryCta,
+} = Astro.props;
+---
+
+<section class="hero min-h-[80vh] bg-gradient-hero flex items-center">
+  <div class="container-wide px-4 py-20 text-center">
+    {variant === 'company' ? (
+      <div class="mb-6">
+        <Logo variant="icon" size="lg" animated={true} class="mx-auto" />
+      </div>
+    ) : (
+      <div class="text-6xl mb-6">🌐</div>
+    )}
+
+    <h1 class="text-display text-gradient mb-4 max-w-3xl mx-auto">{title}</h1>
+
+    <p class="text-h3 text-neutral-600 mb-8 max-w-2xl mx-auto">
+      {subtitle}
+    </p>
+
+    {trustBadgeText && (
+      <TrustBadge icon={trustBadgeIcon} text={trustBadgeText} variant="light" />
+    )}
+
+    <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href={ctaLink} class="btn btn-primary text-lg px-8 py-4">
+        {ctaText}
+      </a>
+
+      {secondaryCta && (
+        <a href={secondaryCta.link} class="btn btn-ghost text-lg px-8 py-4">
+          {secondaryCta.text}
+        </a>
+      )}
+    </div>
+
+    <!-- Optional slot for additional content like product screenshot -->
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: max(80vh, 600px);
+  }
+</style>

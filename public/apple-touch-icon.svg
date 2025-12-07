@@ -1,0 +1,11 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="180" height="180" fill="#f8fafc"/>
+
+  <!-- Centered stacked morph icon scaled up -->
+  <g transform="translate(30, 30)">
+    <circle cx="80" cy="80" r="48" fill="#10b981"/>
+    <rect x="24" y="24" width="72" height="72" rx="18" fill="#3b82f6"/>
+    <rect x="12" y="12" width="48" height="48" fill="#1e40af"/>
+  </g>
+</svg>

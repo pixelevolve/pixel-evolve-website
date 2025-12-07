@@ -1,0 +1,96 @@
+---
+import TrustBadge from './TrustBadge.astro';
+
+export interface Props {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaLink: string;
+  trustNote?: string;
+  badges?: Array<{ icon: string; text: string }>;
+  screenshotSrc?: string;
+  screenshotAlt?: string;
+}
+
+const {
+  title,
+  subtitle,
+  ctaText,
+  ctaLink,
+  trustNote = 'Free plan • No credit card required',
+  badges = [
+    { icon: '✓', text: 'Built for Shopify' },
+    { icon: '🇸🇪', text: 'Engineered in Stockholm' },
+    { icon: '⚡', text: 'Powered by GPT-4' },
+  ],
+  screenshotSrc,
+  screenshotAlt = 'Product screenshot',
+} = Astro.props;
+---
+
+<section class="product-hero bg-gradient-hero">
+  <div class="container-wide px-4 py-20 text-center">
+    <!-- Icon -->
+    <div class="text-6xl mb-6">🌐</div>
+
+    <!-- Headline -->
+    <h1 class="text-display text-neutral-900 mb-4 max-w-3xl mx-auto">
+      {title}
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-h3 text-neutral-600 mb-8 max-w-2xl mx-auto">
+      {subtitle}
+    </p>
+
+    <!-- CTA Button -->
+    <div class="mb-4">
+      <a href={ctaLink} class="btn btn-evolve text-lg px-8 py-4 shadow-lg hover:shadow-xl">
+        {ctaText}
+      </a>
+    </div>
+
+    <!-- Trust Note -->
+    {trustNote && (
+      <p class="text-small text-neutral-500 mb-10">{trustNote}</p>
+    )}
+
+    <!-- Trust Badges Row -->
+    {badges.length > 0 && (
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        {badges.map((badge) => (
+          <TrustBadge icon={badge.icon} text={badge.text} variant="light" />
+        ))}
+      </div>
+    )}
+
+    <!-- Product Screenshot/Mockup -->
+    {screenshotSrc ? (
+      <div class="max-w-4xl mx-auto">
+        <img
+          src={screenshotSrc}
+          alt={screenshotAlt}
+          class="rounded-xl shadow-2xl border border-neutral-200"
+        />
+      </div>
+    ) : (
+      <div class="max-w-4xl mx-auto">
+        <div class="aspect-video bg-white rounded-xl shadow-2xl border border-neutral-200 flex items-center justify-center">
+          <div class="text-center text-neutral-400">
+            <div class="text-5xl mb-4">🖼️</div>
+            <p class="text-small">Product Screenshot</p>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- Optional slot for additional content -->
+    <slot />
+  </div>
+</section>
+
+<style>
+  .product-hero {
+    min-height: max(80vh, 700px);
+  }
+</style>

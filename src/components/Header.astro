@@ -1,0 +1,133 @@
+---
+import Logo from './Logo.astro';
+
+export interface Props {
+  variant?: 'company' | 'product';
+  showCTA?: boolean;
+}
+
+const { variant = 'company', showCTA = true } = Astro.props;
+
+const navLinks = variant === 'company'
+  ? [
+      { href: '/#products', label: 'Products' },
+      { href: '/privacy', label: 'Privacy' },
+      { href: '/terms', label: 'Terms' },
+    ]
+  : [
+      { href: '#features', label: 'Features' },
+      { href: '#pricing', label: 'Pricing' },
+      { href: '#faq', label: 'FAQ' },
+    ];
+
+const ctaLink = variant === 'company'
+  ? { href: 'https://translate.pixel-evolve.com', label: 'Try Translator' }
+  : { href: '#', label: 'Install Free' };
+---
+
+<header class="header sticky top-0 z-40 bg-white border-b border-transparent transition-all duration-200">
+  <div class="container-wide px-4 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href={variant === 'company' ? '/' : 'https://pixel-evolve.com'} class="flex-shrink-0">
+      <Logo variant="full" size="sm" />
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-small font-medium text-neutral-600 hover:text-neutral-900 transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+
+      {showCTA && (
+        <a href={ctaLink.href} class="btn btn-primary text-small py-2 px-4">
+          {ctaLink.label}
+        </a>
+      )}
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button
+      type="button"
+      class="md:hidden p-2 -mr-2 text-neutral-600 hover:text-neutral-900"
+      aria-label="Toggle menu"
+      id="mobile-menu-button"
+    >
+      <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg class="w-6 h-6 close-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav hidden md:hidden bg-white border-t border-neutral-100" id="mobile-nav">
+    <div class="container-wide px-4 py-4 flex flex-col gap-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-body font-medium text-neutral-600 hover:text-neutral-900 py-2"
+        >
+          {link.label}
+        </a>
+      ))}
+
+      {showCTA && (
+        <a href={ctaLink.href} class="btn btn-primary text-center mt-2">
+          {ctaLink.label}
+        </a>
+      )}
+    </div>
+  </nav>
+</header>
+
+<style>
+  .header.scrolled {
+    @apply border-neutral-200 shadow-sm;
+  }
+</style>
+
+<script>
+  // Scroll shadow effect
+  const header = document.querySelector('.header');
+
+  function updateHeaderShadow() {
+    if (window.scrollY > 10) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', updateHeaderShadow, { passive: true });
+  updateHeaderShadow();
+
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileNav = document.getElementById('mobile-nav');
+  const menuIcon = menuButton?.querySelector('.menu-icon');
+  const closeIcon = menuButton?.querySelector('.close-icon');
+
+  menuButton?.addEventListener('click', () => {
+    const isOpen = mobileNav?.classList.contains('hidden');
+
+    mobileNav?.classList.toggle('hidden', !isOpen);
+    menuIcon?.classList.toggle('hidden', isOpen);
+    closeIcon?.classList.toggle('hidden', !isOpen);
+  });
+
+  // Close mobile menu on link click
+  mobileNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileNav?.classList.add('hidden');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+    });
+  });
+</script>

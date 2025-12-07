@@ -1,0 +1,153 @@
+---
+export interface Props {
+  variant?: 'full' | 'icon' | 'white';
+  size?: 'sm' | 'md' | 'lg';
+  animated?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'full',
+  size = 'md',
+  animated = false,
+  class: className = ''
+} = Astro.props;
+
+// Size mappings
+const sizes = {
+  sm: { icon: 32, full: 140 },
+  md: { icon: 48, full: 200 },
+  lg: { icon: 64, full: 280 },
+};
+
+const currentSize = sizes[size];
+const width = variant === 'icon' ? currentSize.icon : currentSize.full;
+const height = variant === 'icon' ? currentSize.icon : currentSize.icon;
+
+// Colors based on variant
+const colors = variant === 'white'
+  ? { square: 'white', squareOpacity: '0.7', rounded: 'white', roundedOpacity: '0.85', circle: 'white', circleOpacity: '1', textPixel: 'white', textEvolve: 'white', textEvolveOpacity: '0.9' }
+  : { square: '#1e40af', squareOpacity: '1', rounded: '#3b82f6', roundedOpacity: '1', circle: '#10b981', circleOpacity: '1', textPixel: '#1e40af', textEvolve: '#10b981', textEvolveOpacity: '1' };
+---
+
+{variant === 'icon' ? (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class:list={[className, { 'logo-animated': animated }]}
+    aria-label="PixelEvolve logo"
+  >
+    <!-- Stacked morph: Circle (back) -> Rounded (mid) -> Square (front) -->
+    <circle
+      class="morph-circle"
+      cx="28" cy="28" r="16"
+      fill={colors.circle}
+      fill-opacity={colors.circleOpacity}
+    />
+    <rect
+      class="morph-rounded"
+      x="8" y="8"
+      width="24" height="24"
+      rx="6"
+      fill={colors.rounded}
+      fill-opacity={colors.roundedOpacity}
+    />
+    <rect
+      class="morph-square"
+      x="4" y="4"
+      width="16" height="16"
+      fill={colors.square}
+      fill-opacity={colors.squareOpacity}
+    />
+  </svg>
+) : (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 200 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class:list={[className, { 'logo-animated': animated }]}
+    aria-label="PixelEvolve logo"
+  >
+    <!-- Stacked morph icon -->
+    <circle
+      class="morph-circle"
+      cx="28" cy="28" r="16"
+      fill={colors.circle}
+      fill-opacity={colors.circleOpacity}
+    />
+    <rect
+      class="morph-rounded"
+      x="8" y="8"
+      width="24" height="24"
+      rx="6"
+      fill={colors.rounded}
+      fill-opacity={colors.roundedOpacity}
+    />
+    <rect
+      class="morph-square"
+      x="4" y="4"
+      width="16" height="16"
+      fill={colors.square}
+      fill-opacity={colors.squareOpacity}
+    />
+    <text
+      x="52" y="30"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="18"
+      font-weight="700"
+      fill={colors.textPixel}
+    >Pixel</text>
+    <text
+      x="97" y="30"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="18"
+      font-weight="700"
+      fill={colors.textEvolve}
+      fill-opacity={colors.textEvolveOpacity}
+    >Evolve</text>
+  </svg>
+)}
+
+<style>
+  /* Morph animation keyframes */
+  @keyframes morph-pulse-circle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.05); }
+  }
+
+  @keyframes morph-pulse-rounded {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    33% { opacity: 0.9; transform: scale(1.02); }
+    66% { opacity: 1; transform: scale(0.98); }
+  }
+
+  @keyframes morph-pulse-square {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.95); }
+  }
+
+  .logo-animated .morph-circle {
+    animation: morph-pulse-circle 3s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .logo-animated .morph-rounded {
+    animation: morph-pulse-rounded 3s ease-in-out infinite;
+    animation-delay: 0.2s;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .logo-animated .morph-square {
+    animation: morph-pulse-square 3s ease-in-out infinite;
+    animation-delay: 0.4s;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+</style>

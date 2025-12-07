@@ -1,0 +1,96 @@
+---
+export interface Props {
+  name: string;
+  price: number;
+  period?: string;
+  tagline: string;
+  features: Array<{ text: string; included: boolean }>;
+  ctaText: string;
+  ctaLink: string;
+  highlighted?: boolean;
+  badge?: string;
+  ctaVariant?: 'ghost' | 'evolve' | 'primary';
+}
+
+const {
+  name,
+  price,
+  period = '/mo',
+  tagline,
+  features,
+  ctaText,
+  ctaLink,
+  highlighted = false,
+  badge,
+  ctaVariant = 'ghost',
+} = Astro.props;
+
+const ctaClasses = {
+  ghost: 'btn btn-ghost w-full',
+  evolve: 'btn btn-evolve w-full',
+  primary: 'btn btn-primary w-full',
+};
+---
+
+<div
+  class:list={[
+    'pricing-card relative bg-white rounded-xl p-8 flex flex-col h-full',
+    highlighted
+      ? 'border-2 border-evolve shadow-xl'
+      : 'border border-neutral-200 shadow-card',
+  ]}
+>
+  {/* Badge */}
+  {badge && (
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+      <span class="bg-evolve text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+        {badge}
+      </span>
+    </div>
+  )}
+
+  {/* Header */}
+  <div class="text-center mb-6">
+    <h3 class="text-h4 text-neutral-900 mb-2">{name}</h3>
+    <div class="flex items-baseline justify-center gap-1">
+      <span class="text-4xl font-bold text-neutral-900">${price}</span>
+      <span class="text-neutral-500">{period}</span>
+    </div>
+    <p class="text-small text-neutral-500 mt-2">{tagline}</p>
+  </div>
+
+  {/* Features */}
+  <ul class="space-y-3 mb-8 flex-grow">
+    {features.map((feature) => (
+      <li class="flex items-start gap-3">
+        <span class:list={[
+          'flex-shrink-0 mt-0.5',
+          feature.included ? 'text-evolve' : 'text-neutral-300'
+        ]}>
+          {feature.included ? '✓' : '✗'}
+        </span>
+        <span class:list={[
+          'text-small',
+          feature.included ? 'text-neutral-700' : 'text-neutral-400'
+        ]}>
+          {feature.text}
+        </span>
+      </li>
+    ))}
+  </ul>
+
+  {/* CTA */}
+  <a href={ctaLink} class={ctaClasses[ctaVariant]}>
+    {ctaText}
+  </a>
+</div>
+
+<style>
+  .pricing-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+  }
+</style>

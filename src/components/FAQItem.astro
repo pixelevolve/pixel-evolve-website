@@ -1,0 +1,88 @@
+---
+export interface Props {
+  question: string;
+  answer: string;
+  defaultOpen?: boolean;
+}
+
+const { question, answer, defaultOpen = false } = Astro.props;
+const id = `faq-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="faq-item border-b border-neutral-200">
+  <button
+    type="button"
+    class="faq-trigger w-full flex items-center justify-between py-5 text-left group"
+    aria-expanded={defaultOpen ? 'true' : 'false'}
+    aria-controls={id}
+  >
+    <span class="text-body font-medium text-neutral-900 pr-4 group-hover:text-primary transition-colors">
+      {question}
+    </span>
+    <span class="faq-icon flex-shrink-0 text-neutral-400 transition-transform duration-300">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </span>
+  </button>
+
+  <div
+    id={id}
+    class="faq-content overflow-hidden transition-all duration-300 ease-in-out"
+    style={defaultOpen ? '' : 'max-height: 0;'}
+  >
+    <div class="pb-5 text-body text-neutral-600" set:html={answer} />
+  </div>
+</div>
+
+<style>
+  .faq-trigger[aria-expanded="true"] .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-content {
+    max-height: 0;
+  }
+
+  .faq-content.open {
+    max-height: 500px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      const contentId = trigger.getAttribute('aria-controls');
+      const content = document.getElementById(contentId!);
+
+      // Toggle state
+      trigger.setAttribute('aria-expanded', String(!expanded));
+
+      if (content) {
+        if (expanded) {
+          content.style.maxHeight = '0';
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      }
+    });
+
+    // Handle keyboard navigation
+    trigger.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+        e.preventDefault();
+        (trigger as HTMLElement).click();
+      }
+    });
+  });
+
+  // Initialize open items
+  document.querySelectorAll('.faq-trigger[aria-expanded="true"]').forEach((trigger) => {
+    const contentId = trigger.getAttribute('aria-controls');
+    const content = document.getElementById(contentId!);
+    if (content) {
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  });
+</script>

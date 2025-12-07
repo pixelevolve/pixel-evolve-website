@@ -1,0 +1,100 @@
+---
+import PricingCard from './PricingCard.astro';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaLink?: string;
+}
+
+const {
+  title = 'Simple, transparent pricing',
+  subtitle = 'No hidden fees. No complicated tiers. Just results.',
+  ctaLink = '#',
+} = Astro.props;
+
+const plans = [
+  {
+    name: 'Free',
+    price: 0,
+    tagline: 'Perfect for getting started',
+    features: [
+      { text: '1 language', included: true },
+      { text: '200 products', included: true },
+      { text: '10-term glossary', included: true },
+      { text: 'Email support', included: true },
+      { text: 'Batch translation', included: false },
+      { text: 'Priority queue', included: false },
+    ],
+    ctaText: 'Start Free',
+    ctaLink: ctaLink,
+    ctaVariant: 'ghost' as const,
+  },
+  {
+    name: 'Basic',
+    price: 19,
+    tagline: 'Most popular for growing stores',
+    features: [
+      { text: '2 languages', included: true },
+      { text: '500 products', included: true },
+      { text: '50-term glossary', included: true },
+      { text: 'Priority email support', included: true },
+      { text: 'Batch translation', included: true },
+      { text: 'Priority queue', included: false },
+    ],
+    ctaText: 'Get Started',
+    ctaLink: ctaLink,
+    ctaVariant: 'evolve' as const,
+    highlighted: true,
+    badge: 'BEST VALUE',
+  },
+  {
+    name: 'Pro',
+    price: 49,
+    tagline: 'For high-volume merchants',
+    features: [
+      { text: '5 languages', included: true },
+      { text: 'Unlimited products', included: true },
+      { text: 'Unlimited glossary', included: true },
+      { text: 'Priority support', included: true },
+      { text: 'Batch translation', included: true },
+      { text: 'Priority queue + API access', included: true },
+    ],
+    ctaText: 'Go Pro',
+    ctaLink: ctaLink,
+    ctaVariant: 'primary' as const,
+  },
+];
+
+const includedFeatures = [
+  'AI translation',
+  'Brand protection',
+  'Automatic sync',
+  'Quality validation',
+  'SEO-friendly hreflang support',
+];
+---
+
+<section id="pricing" class="section bg-white">
+  <div class="container-wide px-4">
+    {/* Header */}
+    <div class="text-center mb-16">
+      <h2 class="text-h2 mb-4">{title}</h2>
+      <p class="text-h4 text-neutral-500 font-normal">{subtitle}</p>
+    </div>
+
+    {/* Pricing Cards */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
+      {plans.map((plan) => (
+        <PricingCard {...plan} />
+      ))}
+    </div>
+
+    {/* Footer Note */}
+    <div class="text-center">
+      <p class="text-small text-neutral-500">
+        All plans include: {includedFeatures.join(' • ')}
+      </p>
+    </div>
+  </div>
+</section>

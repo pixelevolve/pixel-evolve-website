@@ -1,0 +1,17 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const entry = await getEntry('legal', 'terms');
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(entry);
+const { title, lastUpdated } = entry.data;
+const description = 'Terms of Service for PixelEvolve AB. Read our terms and conditions for using our services.';
+---
+
+<LegalLayout title={title} description={description} lastUpdated={lastUpdated}>
+  <Content />
+</LegalLayout>

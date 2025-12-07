@@ -1,0 +1,67 @@
+---
+import TrustBadge from './TrustBadge.astro';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  note?: string;
+  badges?: Array<{ icon: string; text: string }>;
+}
+
+const {
+  title = 'Ready to go global?',
+  subtitle = "Join hundreds of merchants who've expanded their reach with AI-powered translations.",
+  ctaText = 'Install Free →',
+  ctaLink = '#',
+  note = 'No credit card required',
+  badges = [
+    { icon: '✓', text: 'Free plan available' },
+    { icon: '🛡️', text: '30-day guarantee' },
+    { icon: '⚡', text: 'Setup in 5 minutes' },
+  ],
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="container-wide px-4">
+    <div class="final-cta rounded-2xl p-8 md:p-16 text-center text-white">
+      <h2 class="text-h1 mb-4">{title}</h2>
+      <p class="text-h4 font-normal opacity-90 mb-8 max-w-2xl mx-auto">
+        {subtitle}
+      </p>
+
+      {/* Trust Badges */}
+      {badges.length > 0 && (
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          {badges.map((badge) => (
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur rounded-full text-small">
+              <span>{badge.icon}</span>
+              <span>{badge.text}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* CTA Button */}
+      <a
+        href={ctaLink}
+        class="inline-flex items-center justify-center px-8 py-4 bg-white text-evolve font-semibold rounded-lg text-lg shadow-lg hover:shadow-xl hover:bg-neutral-50 transition-all"
+      >
+        {ctaText}
+      </a>
+
+      {/* Note */}
+      {note && (
+        <p class="text-small opacity-75 mt-4">{note}</p>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #10b981 100%);
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import Hero from '../components/Hero.astro';
+import ProductsSection from '../components/ProductsSection.astro';
+
+const title = 'PixelEvolve';
+const description = 'Building tools that help e-commerce businesses grow globally. AI-powered solutions for Shopify merchants.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" variant="company" showCTA={true} />
+
+  <Hero
+    variant="company"
+    title="PixelEvolve"
+    subtitle="Building tools that help e-commerce businesses grow globally"
+    ctaText="Explore Our Products"
+    ctaLink="#products"
+    trustBadgeIcon="🇸🇪"
+    trustBadgeText="Engineered in Stockholm"
+  />
+
+  <ProductsSection />
+
+  <Footer slot="footer" variant="company" />
+
+  <!-- JSON-LD Organization Schema -->
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PixelEvolve AB",
+      "url": "https://pixel-evolve.com",
+      "logo": "https://pixel-evolve.com/logo-full.svg",
+      "description": "Building tools that help e-commerce businesses grow globally",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Stockholm",
+        "addressCountry": "SE"
+      },
+      "sameAs": []
+    })} />
+  </Fragment>
+
+  <CookieBanner />
+</BaseLayout>

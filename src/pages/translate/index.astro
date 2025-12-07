@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CookieBanner from '../../components/CookieBanner.astro';
+import ProductHero from '../../components/ProductHero.astro';
+import FeaturesSection from '../../components/FeaturesSection.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import PricingSection from '../../components/PricingSection.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
+
+const title = 'Shopify AI Translator';
+const description = 'Translate your Shopify store in minutes with AI-powered translations and smart brand protection. Free plan available.';
+const ctaLink = 'https://apps.shopify.com/'; // Replace with actual Shopify app link
+
+// JSON-LD SoftwareApplication schema
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Shopify AI Translator",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "AI-powered translation app for Shopify stores. Translate products, collections, and pages in minutes with smart brand protection.",
+  "author": {
+    "@type": "Organization",
+    "name": "PixelEvolve AB",
+    "url": "https://pixel-evolve.com"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic",
+      "price": "19",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "name": "Pro",
+      "price": "49",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "1"
+  }
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og-image.png"
+>
+  <Header slot="header" variant="product" showCTA={true} />
+
+  <ProductHero
+    title="Translate your store in minutes, not days"
+    subtitle="AI-powered translation with smart brand protection"
+    ctaText="Install Free →"
+    ctaLink={ctaLink}
+    trustNote="Free plan • No credit card required"
+  />
+
+  <FeaturesSection title="Why merchants love us" />
+
+  <HowItWorks ctaText="Get Started →" ctaLink={ctaLink} />
+
+  <PricingSection ctaLink={ctaLink} />
+
+  <FAQSection />
+
+  <FinalCTA ctaLink={ctaLink} />
+
+  <Footer slot="footer" variant="product" />
+
+  <!-- JSON-LD SoftwareApplication Schema -->
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+
+  <CookieBanner />
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import FAQItem from './FAQItem.astro';
+
+export interface Props {
+  title?: string;
+}
+
+const { title = 'Frequently asked questions' } = Astro.props;
+
+const faqs = [
+  {
+    question: 'How does the AI translation work?',
+    answer: `Our app uses GPT-4, one of the most advanced language models available, specifically optimized for e-commerce content. We've fine-tuned our prompts to understand product descriptions, marketing copy, and technical specifications. The result is natural-sounding translations that convert.`,
+  },
+  {
+    question: 'Will it translate my brand name incorrectly?',
+    answer: `Never. Our Brand Protection feature lets you define terms that should never be translated—your brand name, product names, technical terms, or any other words you want to keep in their original form. These terms are automatically preserved across all translations.`,
+  },
+  {
+    question: 'What languages do you support?',
+    answer: `We currently support 11 languages: <strong>English, Swedish, German, French, Spanish, Italian, Dutch, Portuguese, Danish, Norwegian, and Finnish</strong>. More languages are being added regularly based on merchant requests.`,
+  },
+  {
+    question: 'Will translated pages affect my SEO?',
+    answer: `Actually, they'll <strong>boost your SEO</strong>. Our app automatically generates proper hreflang tags, which tell search engines about your multilingual content. This helps you rank in local search results across different countries, potentially driving more organic traffic to your store.`,
+  },
+  {
+    question: 'How do I enable translated languages in my store?',
+    answer: `After translation, you'll need to enable the languages in your Shopify admin under <strong>Settings → Languages</strong>. Shopify handles the language switcher and URL routing automatically. Our app focuses on the translation—Shopify handles the display.`,
+  },
+  {
+    question: "What if I'm not satisfied with the translation quality?",
+    answer: `You can edit any translation directly in the app. Plus, we offer a <strong>30-day money-back guarantee</strong>. If you're not happy with the results, we'll refund your subscription—no questions asked.`,
+  },
+  {
+    question: 'Do you offer refunds?',
+    answer: `Yes! We offer a <strong>30-day money-back guarantee</strong> on all paid plans. If our service doesn't meet your expectations, contact us at support@pixel-evolve.com for a full refund.`,
+  },
+];
+---
+
+<section id="faq" class="section bg-neutral-50">
+  <div class="container-narrow px-4">
+    <h2 class="text-h2 text-center mb-12">{title}</h2>
+
+    <div class="bg-white rounded-xl shadow-card p-6 md:p-8">
+      {faqs.map((faq, index) => (
+        <FAQItem
+          question={faq.question}
+          answer={faq.answer}
+          defaultOpen={false}
+        />
+      ))}
+    </div>
+  </div>
+</section>

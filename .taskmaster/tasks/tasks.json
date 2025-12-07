@@ -1,0 +1,156 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Initialize Astro Project with Tailwind CSS",
+        "description": "Set up the foundational Astro 4.x project with Tailwind CSS 3.x configuration, including all necessary dependencies and project structure as specified in the PRD.",
+        "details": "1. Initialize new Astro project: `npm create astro@latest -- --template minimal`\n2. Install Tailwind CSS: `npx astro add tailwind`\n3. Install additional dependencies: Inter font via `@fontsource/inter`, JetBrains Mono via `@fontsource/jetbrains-mono`\n4. Configure `tailwind.config.cjs` with PRD color system:\n   - Primary colors: #3b82f6, #1e40af, #60a5fa, #10b981 (Evolve Teal)\n   - Neutral colors: #111827, #374151, #4b5563, #9ca3af, #f3f4f6\n   - Typography: Inter font family with specified scale\n5. Create `src/styles/global.css` with base styles, CSS custom properties, and utility classes\n6. Configure `astro.config.mjs` for static site generation\n7. Set up project folder structure as per PRD:\n   - src/layouts/, src/components/, src/pages/, src/content/legal/, src/styles/\n   - public/ for static assets\n8. Install `@astrojs/sitemap` for automatic sitemap generation\n9. Configure TypeScript (tsconfig.json) if needed",
+        "testStrategy": "1. Run `npm run dev` and verify development server starts without errors\n2. Confirm Tailwind classes compile correctly in a test component\n3. Verify Inter font loads properly in browser\n4. Check that project structure matches PRD specification\n5. Validate astro.config.mjs settings by running `npm run build`",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T21:52:06.192Z"
+      },
+      {
+        "id": "2",
+        "title": "Create Logo SVG Assets (The Morph Concept)",
+        "description": "Design and implement all logo variants following the V1.1 'The Morph' concept - representing evolution from rigid pixel to fluid circle with the brand color gradient.",
+        "details": "1. Create `public/logo-icon.svg` - Primary icon with square (#1e40af), rounded square (#3b82f6), and circle (#10b981) at 48x48\n2. Create `public/logo-full.svg` - Icon + 'PixelEvolve' text (Pixel in #1e40af, Evolve in #10b981) at 200x48\n3. Create `public/logo-white.svg` - White/opacity version for dark backgrounds\n4. Create `public/favicon.svg` - Simplified 32x32 version (square + circle only)\n5. Create `public/apple-touch-icon.png` - 180x180 PNG for iOS\n6. Create `public/og-image.png` - 1200x630 social sharing image with logo centered\n7. Create `src/components/Logo.astro` - Reusable component with props for:\n   - variant: 'full' | 'icon' | 'white'\n   - size: 'sm' | 'md' | 'lg'\n   - animated: boolean (for optional CSS animation)\n8. Implement optional CSS animation for hero section (morph-start, morph-middle, morph-end keyframes)\n9. Store SVG code inline in components for easy animation support",
+        "testStrategy": "1. Render Logo component in all variants and verify visual correctness\n2. Test logo at minimum sizes (140px full, 32px icon) for legibility\n3. Verify white logo on dark background has proper contrast\n4. Test favicon displays correctly in browser tab\n5. Validate SVG syntax with W3C validator\n6. Test animation smoothness at 60fps if enabled",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T21:54:58.319Z"
+      },
+      {
+        "id": "3",
+        "title": "Build Base Layout and Reusable Components",
+        "description": "Create the BaseLayout, LegalLayout, Header, Footer, TrustBadge, and CookieBanner components that will be shared across both websites.",
+        "details": "1. Create `src/layouts/BaseLayout.astro`:\n   - HTML head with meta tags, Open Graph, Twitter cards, favicon links\n   - JSON-LD slot for structured data\n   - Props: title, description, canonicalUrl, ogImage, type\n   - Inter font import and global CSS\n\n2. Create `src/layouts/LegalLayout.astro`:\n   - Extends BaseLayout with simplified header/footer\n   - Centered content container (max-width: 800px)\n   - Markdown-friendly prose styling\n\n3. Create `src/components/Header.astro`:\n   - 64px height, white background with scroll shadow\n   - Logo on left, navigation on right\n   - Props: variant ('company' | 'product'), showCTA (boolean)\n   - Mobile hamburger menu implementation\n   - Sticky positioning\n\n4. Create `src/components/Footer.astro`:\n   - Dark background (#111827), 60px padding\n   - Three-column layout (Products, Legal, Contact)\n   - Logo with 'Engineered in Stockholm' badge\n   - Company info: Org.nr: 559493-7418\n   - Props: variant ('company' | 'product')\n\n5. Create `src/components/TrustBadge.astro`:\n   - Pill-shaped badge with icon and text\n   - Props: icon (emoji/svg), text, variant ('light' | 'dark')\n   - Styles: #f8fafc bg, #e5e7eb border, rounded-full\n\n6. Create `src/components/CookieBanner.astro`:\n   - Fixed bottom position, z-50\n   - 'Got it' button with localStorage persistence\n   - Link to privacy policy\n   - Vanilla JS for cookie acceptance logic",
+        "testStrategy": "1. Render BaseLayout and verify all meta tags appear in HTML head\n2. Test Header scroll shadow effect triggers on scroll\n3. Test mobile hamburger menu opens/closes correctly\n4. Verify Footer renders correctly on different screen sizes\n5. Test TrustBadge variants for correct styling\n6. Verify CookieBanner hides after acceptance and persists across page loads\n7. Test keyboard accessibility for all interactive elements",
+        "priority": "high",
+        "dependencies": [
+          "1",
+          "2"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:05:56.254Z"
+      },
+      {
+        "id": "4",
+        "title": "Implement Company Homepage Hero and Products Sections",
+        "description": "Build the main content sections for pixel-evolve.com including the Hero section with animated logo and trust badge, and the Products section showcasing Shopify AI Translator.",
+        "details": "1. Create `src/components/Hero.astro` (Company variant):\n   - Full viewport height (min 600px)\n   - Gradient background (#f8fafc → #eff6ff → #ecfdf5)\n   - Centered animated logo icon (64px)\n   - H1: 'PixelEvolve' (48px, weight 700)\n   - Subtitle: 'Building tools that help e-commerce businesses grow globally'\n   - Trust badge: '🇸🇪 Engineered in Stockholm'\n   - CTA button: 'Explore Our Products' with scroll-to-products\n\n2. Create `src/components/ProductCard.astro`:\n   - White background, 12px border-radius, shadow\n   - Props: icon, name, description, features[], badges[], ctaText, ctaLink\n   - 40px padding, max-width 800px centered\n   - 2-column feature grid with checkmark icons\n   - Hover shadow transition\n\n3. Create `src/components/ProductsSection.astro`:\n   - Section with 80px top/bottom padding\n   - H2: 'Our Products' centered\n   - Primary ProductCard for Shopify AI Translator:\n     - Icon: 🌐\n     - Features: AI-powered translation, Brand term protection, Simple pricing, Native Shopify integration\n     - Badges: 'Built for Shopify ✓', '🇸🇪 Made in Sweden'\n   - Secondary card: 'More coming soon...' placeholder\n\n4. Add smooth scroll behavior for CTA button\n5. Implement responsive breakpoints (Desktop ≥1024px, Tablet 768-1023px, Mobile <768px)",
+        "testStrategy": "1. Verify Hero occupies full viewport on load\n2. Test gradient renders correctly across browsers\n3. Verify smooth scroll to Products section works\n4. Test ProductCard hover effects\n5. Verify responsive layout stacks correctly on mobile\n6. Test trust badges display properly in all sizes\n7. Lighthouse performance audit for hero section LCP",
+        "priority": "high",
+        "dependencies": [
+          "3"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:10:00.236Z"
+      },
+      {
+        "id": "5",
+        "title": "Create Company Homepage and Legal Pages",
+        "description": "Assemble the complete company homepage (index.astro) and create Privacy Policy and Terms of Service legal pages with proper content.",
+        "details": "1. Create `src/pages/index.astro`:\n   - Import and compose BaseLayout, Header, Hero, ProductsSection, Footer\n   - Add JSON-LD Organization structured data\n   - Configure meta tags: title='PixelEvolve', description='Building tools...'\n   - Add canonical URL\n\n2. Create `src/content/legal/privacy.md`:\n   - GDPR-compliant privacy policy content\n   - Sections: Introduction (PixelEvolve AB, Sweden), Information Collected, Usage, Storage (EU servers), Sharing, User Rights (access, rectification, deletion, portability), Cookies, International Transfers, Contact\n   - Last updated date\n\n3. Create `src/content/legal/terms.md`:\n   - Terms of service content\n   - Sections: Acceptance, Service Description, User Responsibilities, Pricing/Payment, IP Rights, Liability Limits, Termination, Governing Law (Sweden), Changes, Contact\n\n4. Create `src/pages/privacy.astro`:\n   - Uses LegalLayout\n   - Renders privacy.md content\n   - Proper SEO meta tags\n\n5. Create `src/pages/terms.astro`:\n   - Uses LegalLayout\n   - Renders terms.md content\n\n6. Create `public/robots.txt`:\n   - Allow all crawlers\n   - Reference sitemap.xml\n\n7. Configure @astrojs/sitemap in astro.config.mjs",
+        "testStrategy": "1. Navigate through all pages and verify links work\n2. Validate HTML structure with W3C validator\n3. Test JSON-LD with Google Rich Results Test\n4. Verify robots.txt is accessible at /robots.txt\n5. Confirm sitemap.xml is generated on build\n6. Test legal pages render markdown correctly\n7. Verify proper heading hierarchy for SEO",
+        "priority": "high",
+        "dependencies": [
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:11:34.039Z"
+      },
+      {
+        "id": "6",
+        "title": "Build Product Page Hero and Features Sections",
+        "description": "Create the translate.pixel-evolve.com Hero section with three trust badges and the Features section showcasing the six key product benefits.",
+        "details": "1. Create `src/components/ProductHero.astro`:\n   - Gradient background (#f8fafc → #eff6ff → #ecfdf5)\n   - 🌐 icon at top\n   - H1: 'Translate your store in minutes, not days'\n   - H3 subtitle: 'AI-powered translation with smart brand protection'\n   - Primary CTA: 'Install Free →' (Evolve Green #10b981, large)\n   - Trust note: 'Free plan • No credit card required'\n   - 3-column trust badge row:\n     - '✓ Built for Shopify'\n     - '🇸🇪 Engineered in Stockholm'\n     - '⚡ Powered by GPT-4'\n   - Product screenshot/mockup placeholder (max-width 800px, shadow)\n\n2. Create `src/components/FeatureCard.astro`:\n   - No border, center-aligned\n   - Props: icon (48px emoji), title (H4), description\n\n3. Create `src/components/FeaturesSection.astro`:\n   - H2: 'Why merchants love us'\n   - 3-column grid (single column mobile)\n   - 6 features:\n     1. 🚀 Lightning Fast - 'Translate 50 products in under 5 minutes'\n     2. 🛡️ Brand Protection - 'Your brand names stay untouched. Always.'\n     3. 💰 Transparent Pricing - 'Know exactly what you pay. No surprises.'\n     4. 🎯 Quality Translation - 'E-commerce optimized prompts'\n     5. 🔄 Auto Sync - 'Products update? Translations sync automatically.'\n     6. 💬 Human Support - 'Real humans respond in under 4 hours.'\n\n4. Responsive grid layout with proper spacing",
+        "testStrategy": "1. Verify Hero layout renders correctly at all breakpoints\n2. Test trust badges display in 3-column layout on desktop, stack on mobile\n3. Verify feature cards grid adapts properly to screen size\n4. Test CTA button hover states\n5. Verify all emoji icons render correctly across platforms\n6. Test screenshot placeholder aspect ratio maintenance",
+        "priority": "high",
+        "dependencies": [
+          "3"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:12:22.580Z"
+      },
+      {
+        "id": "7",
+        "title": "Implement How It Works and Three-Tier Pricing Sections",
+        "description": "Build the 3-step workflow section and the V1.1 three-tier pricing section (Free, Basic $19, Pro $49) with the Basic plan highlighted as 'BEST VALUE'.",
+        "details": "1. Create `src/components/HowItWorks.astro`:\n   - H2: 'How it works'\n   - 3-step horizontal flow with connecting arrows\n   - Step numbers in gradient circles (#3b82f6 → #10b981)\n   - Steps:\n     1. Install - 'Install the app from Shopify App Store'\n     2. Configure - 'Select your target languages and brand terms'\n     3. Translate - 'Click translate and you're done!'\n   - CTA: 'Get Started →'\n   - Responsive: stack vertically on mobile\n\n2. Create `src/components/PricingCard.astro`:\n   - Props: name, price, tagline, features[], ctaText, highlighted, badge\n   - Standard: white bg, rounded-xl, shadow\n   - Highlighted (Basic): #10b981 border, enhanced shadow, 'BEST VALUE' badge\n   - Feature list with ✓/✗ icons\n   - CTA buttons: Free=Ghost, Basic=Evolve Green, Pro=Primary Blue\n\n3. Create `src/components/PricingSection.astro`:\n   - H2: 'Simple, transparent pricing'\n   - Subtitle: 'No hidden fees. No complicated tiers. Just results.'\n   - 3-column card layout:\n     - Free: $0/mo, 1 lang, 200 products, 10-term glossary, email support, no batch\n     - Basic (BEST VALUE): $19/mo, 2 langs, 500 products, 50-term glossary, batch\n     - Pro: $49/mo, 5 langs, unlimited products, priority queue, API access\n   - Footer note: 'All plans include: AI translation, brand protection, automatic sync, quality validation, and SEO-friendly hreflang support'\n\n4. Ensure pricing cards are same height with flexbox",
+        "testStrategy": "1. Verify 3-step flow renders horizontally on desktop\n2. Test step number gradient circles render correctly\n3. Verify pricing cards have equal heights\n4. Test 'BEST VALUE' badge positioning on Basic card\n5. Verify pricing features list alignment\n6. Test CTA button variants have correct colors\n7. Test responsive stacking of pricing cards on mobile",
+        "priority": "high",
+        "dependencies": [
+          "6"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:13:21.202Z"
+      },
+      {
+        "id": "8",
+        "title": "Build FAQ Accordion and Final CTA Sections",
+        "description": "Create the FAQ section with expandable accordion (including V1.1 SEO question) and the Final CTA section with gradient background for the product page.",
+        "details": "1. Create `src/components/FAQItem.astro`:\n   - Expandable accordion item with ▸/▾ indicator\n   - Props: question, answer, defaultOpen\n   - Smooth slide animation (300ms ease)\n   - Vanilla JS for toggle functionality\n   - Border-bottom separator\n\n2. Create `src/components/FAQSection.astro`:\n   - H2: 'Frequently asked questions'\n   - 7 FAQ items (all collapsed by default):\n     1. How does the AI translation work?\n     2. Will it translate my brand name incorrectly?\n     3. What languages do you support? (11 languages listed)\n     4. Will translated pages affect my SEO? (V1.1 - SEO boost explanation)\n     5. How do I enable translated languages in my store?\n     6. What if I'm not satisfied?\n     7. Do you offer refunds? (30-day guarantee)\n   - Answer content as per PRD section 3.3.6\n\n3. Create `src/components/FinalCTA.astro`:\n   - Card with gradient background (#1e40af → #3b82f6 → #10b981)\n   - White text\n   - H2: 'Ready to go global?'\n   - Subtitle: 'Join hundreds of merchants who've expanded their reach with AI-powered translations.'\n   - Trust badges row (white bg, dark text)\n   - CTA: 'Install Free →' (white bg, Evolve Green text)\n   - Note: 'No credit card required'\n\n4. Ensure FAQ state persists within page session",
+        "testStrategy": "1. Test FAQ accordion opens/closes smoothly\n2. Verify only one FAQ can be open at a time (optional behavior)\n3. Test FAQ content renders markdown correctly\n4. Verify Final CTA gradient renders correctly\n5. Test trust badges contrast on gradient background\n6. Verify CTA button hover states work\n7. Test keyboard navigation for FAQ items (Enter/Space to toggle)",
+        "priority": "medium",
+        "dependencies": [
+          "6"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:14:20.553Z"
+      },
+      {
+        "id": "9",
+        "title": "Assemble Product Page with JSON-LD Structured Data",
+        "description": "Create the complete product page (translate.pixel-evolve.com) by composing all sections and adding SoftwareApplication JSON-LD structured data.",
+        "details": "1. Create product page entry point (can be separate repo or subdomain handling):\n   - For MVP: Create `src/pages/translate/index.astro` or plan for separate deployment\n\n2. Compose the product page:\n   - BaseLayout with product-specific meta tags\n   - Header (variant='product', showCTA=true)\n   - ProductHero\n   - FeaturesSection\n   - HowItWorks\n   - PricingSection\n   - FAQSection\n   - FinalCTA\n   - Footer (variant='product')\n\n3. Add JSON-LD SoftwareApplication structured data:\n   - @type: 'SoftwareApplication'\n   - name: 'Shopify AI Translator'\n   - applicationCategory: 'BusinessApplication'\n   - operatingSystem: 'Web'\n   - offers array with Free ($0), Basic ($19), Pro ($49)\n   - author: PixelEvolve AB\n   - description: 'AI-powered translation app for Shopify stores...'\n\n4. Configure product-specific SEO:\n   - Title: 'Shopify AI Translator | PixelEvolve'\n   - Description: 'Translate your Shopify store in minutes with AI...'\n   - og-image-translate.png for social sharing\n\n5. Create product-specific legal page links if needed\n\n6. Add inter-page navigation between company and product sites",
+        "testStrategy": "1. Navigate through complete product page flow\n2. Validate JSON-LD with Google Rich Results Test\n3. Test all internal links work correctly\n4. Verify Open Graph tags with social media debuggers\n5. Test page load performance (target <3s LCP)\n6. Verify smooth scrolling between sections\n7. Test navigation between company and product pages",
+        "priority": "high",
+        "dependencies": [
+          "7",
+          "8"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:15:47.324Z"
+      },
+      {
+        "id": "10",
+        "title": "Configure Deployment and Domain Setup for Cloudflare Pages",
+        "description": "Set up Cloudflare Pages deployment, configure custom domains (pixel-evolve.com and translate.pixel-evolve.com), verify SSL, and perform final testing.",
+        "details": "1. Prepare for deployment:\n   - Ensure `npm run build` completes without errors\n   - Verify dist/ folder contains all static assets\n   - Check sitemap.xml is generated\n\n2. GitHub repository setup:\n   - Initialize git repository if not done\n   - Create .gitignore for node_modules, dist, .env\n   - Push to GitHub\n\n3. Cloudflare Pages configuration:\n   - Connect GitHub repository to Cloudflare Pages\n   - Configure build settings:\n     - Build command: `npm run build`\n     - Build output directory: `dist`\n     - Node.js version: 18.x or 20.x\n\n4. Domain configuration:\n   - Add pixel-evolve.com as custom domain\n   - Configure translate.pixel-evolve.com subdomain\n   - For multi-repo approach: Set up separate Cloudflare Pages project for product site\n\n5. SSL/TLS verification:\n   - Verify HTTPS works on both domains\n   - Check SSL certificate auto-renewal is enabled\n\n6. Post-deployment verification:\n   - Submit sitemap to Google Search Console\n   - Verify robots.txt is accessible\n   - Test all pages on production URLs\n   - Verify Cookie Banner functionality\n   - Run Lighthouse audits on production\n\n7. DNS propagation monitoring (may take up to 24-48 hours)",
+        "testStrategy": "1. Verify build completes successfully in Cloudflare\n2. Test both domains resolve correctly with HTTPS\n3. Verify SSL certificates are valid and auto-renewing\n4. Test all pages load correctly on production\n5. Validate sitemap is accessible at canonical URLs\n6. Run Lighthouse audits: target >90 performance, >90 accessibility\n7. Test Cookie Banner on fresh browser session\n8. Verify JSON-LD appears in Google Search Console\n9. Test mobile experience on actual devices",
+        "priority": "high",
+        "dependencies": [
+          "5",
+          "9"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-07T22:16:35.544Z"
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2025-12-07T22:16:35.544Z",
+      "taskCount": 10,
+      "completedCount": 10,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}
