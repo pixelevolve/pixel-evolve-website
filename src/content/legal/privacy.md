@@ -1,6 +1,6 @@
 ---
 title: Privacy Policy
-lastUpdated: 2024-12-01
+lastUpdated: 2025-12-07
 ---
 
 ## Introduction
