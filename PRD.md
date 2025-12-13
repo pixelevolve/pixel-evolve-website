@@ -324,7 +324,7 @@ Copy:
 │  │                                                               │  │
 │  │   🌐                                                          │  │
 │  │                                                               │  │
-│  │   Shopify AI Translator                                       │  │
+│  │   SmartLang                                                   │  │
 │  │                                                               │  │
 │  │   Translate your Shopify store into multiple languages        │  │
 │  │   in minutes, not days. Powered by AI with smart brand        │  │
@@ -380,7 +380,7 @@ Product Card Content:
 │  ───────────────────────────────────────────────────────────────    │
 │                                                                     │
 │  Products              Legal                 Contact                │
-│  • AI Translator       • Privacy Policy      hello@pixel-evolve.com │
+│  • SmartLang           • Privacy Policy      hello@pixel-evolve.com │
 │                        • Terms of Service                           │
 │                                                                     │
 │  ───────────────────────────────────────────────────────────────    │
@@ -447,7 +447,7 @@ translate.pixel-evolve.com
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
-│  [■▢●→] Shopify AI Translator   Features  Pricing  FAQ    [Install] │
+│  [■▢●→] SmartLang               Features  Pricing  FAQ    [Install] │
 │         by PixelEvolve                                              │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
@@ -463,7 +463,7 @@ Specifications:
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
-│                    🌐 Shopify AI Translator                         │
+│                    🌐 SmartLang                                     │
 │                                                                     │
 │                 Translate your store in minutes,                    │
 │                         not days                                    │
@@ -999,7 +999,7 @@ Sitemap: https://pixel-evolve.com/sitemap.xml
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Shopify AI Translator",
+  "name": "SmartLang",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
   "offers": [
@@ -1291,7 +1291,7 @@ Products:
 Section Title: Our Products
 
 Product 1:
-- Name: Shopify AI Translator
+- Name: SmartLang
 - Description: Translate your Shopify store into multiple languages in minutes, 
   not days. Powered by AI with smart brand term protection.
 - Features:

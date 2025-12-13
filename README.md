@@ -1,13 +1,13 @@
 # PixelEvolve Website
 
-A modern, SEO-optimized marketing website for PixelEvolve AB, showcasing AI-powered e-commerce tools including the flagship **Shopify AI Translator**.
+A modern, SEO-optimized marketing website for PixelEvolve AB, showcasing AI-powered e-commerce tools including the flagship **SmartLang**.
 
 ## Overview
 
 PixelEvolve builds tools that help e-commerce businesses grow globally. This website serves as the marketing hub for the company, featuring:
 
 - **Company homepage** with brand identity and product showcase
-- **Product landing page** for Shopify AI Translator
+- **Product landing page** for SmartLang
 - **Legal pages** (Privacy Policy, Terms of Service)
 
 **Live Site**: [https://pixel-evolve.com](https://pixel-evolve.com)
@@ -118,7 +118,7 @@ Company landing page featuring:
 - Product showcase section
 - Trust badge ("Engineered in Stockholm")
 
-### Shopify AI Translator (`/translate/`)
+### SmartLang (`/translate/`)
 
 Product landing page with:
 - Feature highlights (6 key benefits)
