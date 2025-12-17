@@ -30,7 +30,11 @@ const isSecondary = variant === 'secondary';
     { 'opacity-60': isSecondary }
   ]}
 >
-  <div class={isSecondary ? 'text-4xl mb-4' : 'text-5xl mb-4'}>{icon}</div>
+  {icon.startsWith('<') ? (
+    <div class={isSecondary ? 'mb-4 flex justify-center' : 'mb-4 flex justify-center'} set:html={icon} />
+  ) : (
+    <div class={isSecondary ? 'text-4xl mb-4' : 'text-5xl mb-4'}>{icon}</div>
+  )}
 
   <h3 class:list={[
     'mb-2',

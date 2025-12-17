@@ -9,26 +9,35 @@
   </defs>
   <rect width="1200" height="630" fill="url(#bg-gradient-translate)"/>
 
-  <!-- Globe icon -->
-  <text x="600" y="200" text-anchor="middle" font-size="80">🌐</text>
+  <!-- SmartLang Icon (crosshair/target design) -->
+  <g transform="translate(540, 80)">
+    <rect width="120" height="120" rx="24" fill="#10b981"/>
+    <circle cx="60" cy="60" r="36" stroke="white" stroke-width="6" fill="none"/>
+    <circle cx="60" cy="60" r="18" stroke="white" stroke-width="5" fill="none"/>
+    <line x1="16" y1="60" x2="36" y2="60" stroke="white" stroke-width="6" stroke-linecap="round"/>
+    <line x1="84" y1="60" x2="104" y2="60" stroke="white" stroke-width="6" stroke-linecap="round"/>
+    <line x1="60" y1="16" x2="60" y2="36" stroke="white" stroke-width="6" stroke-linecap="round"/>
+    <line x1="60" y1="84" x2="60" y2="104" stroke="white" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="60" cy="60" r="5" fill="white"/>
+  </g>
 
   <!-- Title -->
-  <text x="600" y="300" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="48" font-weight="700" fill="#111827">
+  <text x="600" y="280" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="700" fill="#111827">
     SmartLang
   </text>
 
   <!-- Subtitle -->
-  <text x="600" y="360" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" fill="#4b5563">
+  <text x="600" y="350" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="26" fill="#4b5563">
     Translate your store in minutes, not days
   </text>
 
   <!-- Trust badges -->
-  <text x="600" y="450" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#10b981">
-    Built for Shopify  |  Made in Sweden  |  Powered by GPT-4
+  <text x="600" y="440" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#10b981">
+    Built for Shopify  •  Made in Sweden  •  AI-Powered
   </text>
 
   <!-- PixelEvolve branding -->
-  <text x="600" y="550" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#9ca3af">
+  <text x="600" y="540" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#9ca3af">
     by PixelEvolve
   </text>
 </svg>
